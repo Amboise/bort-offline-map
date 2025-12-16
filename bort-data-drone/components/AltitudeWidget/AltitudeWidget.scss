@@ -1,0 +1,104 @@
+.altitude-widget {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 2px;
+  background: rgba(17, 24, 39, 0.85);
+  color: #e5e7eb;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  width: 27px;
+  height: 264px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  font-family: 'Courier New', monospace;
+}
+
+.altitude-widget--disconnected {
+  opacity: 0.6;
+}
+
+// Вертикальная шкала
+.altitude-widget__scale {
+  position: relative;
+  flex: 1;
+  margin: 2px 0;
+}
+
+.altitude-widget__scale-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: visible;
+}
+
+.altitude-widget__scale-indicator {
+  position: absolute;
+  left: -1px;
+  right: 1px;
+  bottom: 0;
+  height: 2px;
+  background: rgba(59, 130, 246, 0.9);
+  border-radius: 1px;
+  transition: bottom 0.3s ease-out;
+  z-index: 2;
+  animation: altitudePulse 2s ease-in-out infinite;
+  
+}
+
+@keyframes altitudePulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 12px rgba(59, 130, 246, 0.9),
+      0 0 20px rgba(59, 130, 246, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 16px rgba(59, 130, 246, 1),
+      0 0 28px rgba(59, 130, 246, 0.8),
+      0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.altitude-widget__scale-marks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.altitude-widget__scale-mark {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  
+  &--major {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.altitude-widget__scale-label {
+  position: absolute;
+  right: 2px;
+  top: -5px;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+// Адаптивность для мобильных
+@media (max-width: 768px) {
+  .altitude-widget {
+    width: 28px;
+    height: 220px;
+    padding: 8px 6px;
+  }
+}
+

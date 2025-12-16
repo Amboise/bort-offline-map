@@ -1,0 +1,312 @@
+.drone-telemetry {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  &__status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &--connected {
+      background: #27ae60;
+      color: white;
+    }
+
+    &--disconnected {
+      background: #e74c3c;
+      color: white;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.telemetry-section {
+  &__title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.telemetry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #3498db;
+
+  &__label {
+    font-size: 13px;
+    color: #7f8c8d;
+    font-weight: 500;
+  }
+
+  &__value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Consolas', 'Monaco', monospace;
+
+    &.connected {
+      color: #27ae60;
+    }
+
+    &.disconnected {
+      color: #e74c3c;
+    }
+
+    &.armed {
+      color: #27ae60;
+      font-weight: 700;
+    }
+
+    &.disarmed {
+      color: #e74c3c;
+    }
+  }
+}
+
+.gps-fix {
+  &--no-fix {
+    color: #e74c3c !important;
+  }
+
+  &--2d {
+    color: #f39c12 !important;
+  }
+
+  &--3d {
+    color: #27ae60 !important;
+  }
+}
+
+.battery-critical {
+  color: #e74c3c !important;
+  font-weight: 700;
+}
+
+.battery-low {
+  color: #f39c12 !important;
+  font-weight: 600;
+}
+
+.battery-good {
+  color: #27ae60 !important;
+}
+
+// Кнопки управления
+.telemetry-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.telemetry-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--start {
+    background: #27ae60;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #229954;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--stop {
+    background: #e74c3c;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #c0392b;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--heartbeat {
+    background: #e91e63;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #c2185b;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--request {
+    background: #3498db;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #2980b9;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 768px) {
+  .drone-telemetry {
+    padding: 12px;
+    border-radius: 8px;
+    max-height: 70vh;
+
+    &__header {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .telemetry-item {
+    padding: 6px 10px;
+    
+    &__label {
+      font-size: 12px;
+    }
+
+    &__value {
+      font-size: 13px;
+    }
+  }
+
+  .telemetry-controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .telemetry-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+// Темная тема (если нужно)
+@media (prefers-color-scheme: dark) {
+  .drone-telemetry {
+    background: rgba(44, 62, 80, 0.95);
+    color: #ecf0f1;
+
+    &__title {
+      color: #ecf0f1;
+    }
+  }
+
+  .telemetry-section__title {
+    color: #bdc3c7;
+  }
+
+  .telemetry-item {
+    background: rgba(52, 73, 94, 0.8);
+    border-left-color: #3498db;
+
+    &__label {
+      color: #95a5a6;
+    }
+
+    &__value {
+      color: #ecf0f1;
+    }
+  }
+}
+
+// Анимации
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.drone-telemetry__status--connected {
+  animation: pulse 2s infinite;
+}
+
+// Скроллбар стилизация
+.drone-telemetry::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drone-telemetry::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.drone-telemetry::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.drone-telemetry::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,1022 @@
+.autopilot-settings {
+  height: 100vh;
+  background-color: #ffffff;
+  color: #333333;
+  font-family: 'NotoSansKR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.autopilot-settings__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  flex-shrink: 0;
+}
+
+.autopilot-settings__header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.autopilot-settings__connection-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.autopilot-settings__status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  animation: pulse-red 2s ease-in-out infinite;
+  
+  &--connected {
+    background-color: #10b981;
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+}
+
+.autopilot-settings__status-text {
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.autopilot-settings__back-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1e40af;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.autopilot-settings__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.autopilot-settings__container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+// Левая панель - дерево параметров
+.autopilot-settings__sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.autopilot-settings__sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #ffffff;
+  
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e3a8a;
+  }
+}
+
+.autopilot-settings__sidebar-tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.autopilot-settings__tree-item {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  
+  &:hover {
+    background-color: #e9ecef;
+  }
+  
+  &--active {
+    background-color: #1e40af;
+    color: #ffffff;
+    font-weight: 500;
+    
+    &:hover {
+      background-color: #1d4ed8;
+    }
+  }
+}
+
+.autopilot-settings__tree-icon {
+  font-size: 10px;
+  width: 12px;
+  display: inline-block;
+}
+
+.autopilot-settings__tree-label {
+  flex: 1;
+  font-size: 13px;
+}
+
+.autopilot-settings__tree-count {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+// Центральная панель - таблица параметров
+.autopilot-settings__main {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 20px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.autopilot-settings__table-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.autopilot-settings__table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.autopilot-settings__table-header {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 10;
+}
+
+.autopilot-settings__table-header-cell {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e3a8a;
+  border-bottom: 1px solid #e9ecef;
+  border-right: 1px solid #e9ecef;
+  white-space: nowrap;
+  
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.autopilot-settings__table-body {
+  background-color: #ffffff;
+}
+
+.autopilot-settings__table-row {
+  border-bottom: 1px solid #f1f3f4;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+  }
+  
+  &:nth-child(even) {
+    background-color: #fafbfc;
+    
+    &:hover {
+      background-color: #f8f9fa;
+    }
+  }
+}
+
+.autopilot-settings__table-cell {
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #333333;
+  border-right: 1px solid #f1f3f4;
+  vertical-align: top;
+  
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.autopilot-settings__table-cell--name {
+  font-weight: 500;
+  color: #1e3a8a;
+  min-width: 120px;
+}
+
+.autopilot-settings__table-cell--value {
+  min-width: 80px;
+}
+
+.autopilot-settings__table-cell--default {
+  min-width: 80px;
+  color: #6b7280;
+}
+
+.autopilot-settings__table-cell--units {
+  min-width: 60px;
+  color: #6b7280;
+}
+
+.autopilot-settings__table-cell--options {
+  min-width: 120px;
+  max-width: 200px;
+}
+
+.autopilot-settings__table-cell--desc {
+  min-width: 200px;
+  max-width: 300px;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+.autopilot-settings__table-cell--fav {
+  text-align: center;
+  min-width: 40px;
+}
+
+// Элементы управления
+.autopilot-settings__input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 12px;
+  border-radius: 4px;
+  
+  &:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+  }
+  
+  &--modified {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+  }
+}
+
+.autopilot-settings__checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #1e40af;
+  cursor: pointer;
+}
+
+.autopilot-settings__options {
+  font-size: 11px;
+  line-height: 1.3;
+  color: #6b7280;
+}
+
+.autopilot-settings__option {
+  margin-bottom: 2px;
+}
+
+// Лоадер при загрузке параметров
+.autopilot-settings__loader-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.autopilot-settings__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.autopilot-settings__loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #e9ecef;
+  border-top-color: #1e40af;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.autopilot-settings__loader-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.autopilot-settings__loader-description {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+// Правая панель - управление
+.autopilot-settings__controls {
+  width: 280px;
+  background-color: #f8f9fa;
+  border-left: 1px solid #e9ecef;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.autopilot-settings__controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autopilot-settings__button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  
+  &--primary {
+    background-color: #22c55e;
+    color: #ffffff;
+    
+    &:hover {
+      background-color: #16a34a;
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  &--secondary {
+    background-color: #6b7280;
+    color: #ffffff;
+    
+    &:hover {
+      background-color: #4b5563;
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+.autopilot-settings__info {
+  padding: 8px 0;
+}
+
+.autopilot-settings__info-text {
+  margin: 0;
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.autopilot-settings__preset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autopilot-settings__preset-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 12px;
+  border-radius: 4px;
+  
+  &:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+  }
+  
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.autopilot-settings__search {
+  display: flex;
+  flex-direction: column;
+}
+
+.autopilot-settings__search-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 12px;
+  border-radius: 4px;
+  
+  &:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+  }
+  
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.autopilot-settings__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autopilot-settings__filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #333333;
+  cursor: pointer;
+  
+  &:hover {
+    color: #1e3a8a;
+  }
+}
+
+// Скроллбары
+.autopilot-settings__table-container::-webkit-scrollbar,
+.autopilot-settings__controls::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.autopilot-settings__table-container::-webkit-scrollbar-track,
+.autopilot-settings__controls::-webkit-scrollbar-track {
+  background: #f1f3f4;
+}
+
+.autopilot-settings__table-container::-webkit-scrollbar-thumb,
+.autopilot-settings__controls::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+  
+  &:hover {
+    background: #9ca3af;
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 1024px) {
+  .autopilot-settings__container {
+    flex-direction: column;
+  }
+  
+  .autopilot-settings__main {
+    flex: 1;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .autopilot-settings__table-cell {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  
+  .autopilot-settings__table-cell--desc {
+    max-width: 150px;
+  }
+}
+
+// Кнопка подключения к дрону
+.autopilot-settings__connect-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #1e40af;
+  }
+  
+  &--connected {
+    background-color: #22c55e;
+    color: #ffffff;
+    border-color: #16a34a;
+    
+    &:hover {
+      background-color: #16a34a;
+    }
+  }
+}
+
+.autopilot-settings__connect-icon {
+  font-size: 16px;
+}
+
+// Модальное окно подключения
+.autopilot-settings__connection-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.autopilot-settings__connection-content {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.autopilot-settings__connection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+.autopilot-settings__connection-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.autopilot-settings__connection-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #e5e7eb;
+    color: #374151;
+  }
+}
+
+.autopilot-settings__connection-body {
+  padding: 24px;
+}
+
+.autopilot-settings__connection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.autopilot-settings__connection-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autopilot-settings__connection-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.autopilot-settings__connection-input,
+.autopilot-settings__connection-select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+  }
+}
+
+.autopilot-settings__connection-status {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.autopilot-settings__connection-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.autopilot-settings__connection-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #1e40af;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.autopilot-settings__connection-status-indicator {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+  
+  &--connected {
+    background-color: #dcfce7;
+    color: #16a34a;
+    border-color: #bbf7d0;
+  }
+}
+
+.autopilot-settings__connection-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.autopilot-settings__connection-connect {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1e40af;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background-color: #1d4ed8;
+  }
+  
+  &:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+.autopilot-settings__connection-cancel {
+  padding: 10px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #9ca3af;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Стили для панели управления параметрами
+.autopilot-settings__parameter-controls {
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.autopilot-settings__parameter-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autopilot-settings__parameter-status,
+.autopilot-settings__parameter-update {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.autopilot-settings__parameter-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+}
+
+.autopilot-settings__parameter-value {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.autopilot-settings__parameter-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.autopilot-settings__parameter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: #fff;
+  color: #495057;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background: #e9ecef;
+    border-color: #adb5bd;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.autopilot-settings__parameter-button--refresh {
+  border-color: #007bff;
+  color: #007bff;
+  
+  &:hover:not(:disabled) {
+    background: #007bff;
+    color: #fff;
+  }
+}
+
+.autopilot-settings__parameter-button--write {
+  border-color: #28a745;
+  color: #28a745;
+  
+  &:hover:not(:disabled) {
+    background: #28a745;
+    color: #fff;
+  }
+}
+
+.autopilot-settings__parameter-count {
+  background: #dc3545;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+// Стили для селектов параметров
+.autopilot-settings__parameter-select {
+  width: 100%;
+}
+
+.autopilot-settings__select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: #fff;
+  color: #495057;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  &--modified {
+    border-color: #ffc107;
+    background: #fff3cd;
+  }
+}
+
+.autopilot-settings__parameter-input {
+  width: 100%;
+}
+
+.autopilot-settings__input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: #fff;
+  color: #495057;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  }
+  
+  &--modified {
+    border-color: #28a745;
+    background: #d4edda;
+    font-weight: 500;
+    
+    &:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+    }
+  }
+}
+
+// Стили для пустого состояния
+.autopilot-settings__empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  text-align: center;
+  padding: 40px;
+}
+
+.autopilot-settings__empty-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.autopilot-settings__empty-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.autopilot-settings__empty-description {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 24px;
+  max-width: 500px;
+  line-height: 1.6;
+  
+  code {
+    display: block;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background-color: #1e293b;
+    color: #10b981;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    overflow-x: auto;
+  }
+}
+
+.autopilot-settings__empty-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}

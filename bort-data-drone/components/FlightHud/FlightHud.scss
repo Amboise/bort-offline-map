@@ -1,0 +1,362 @@
+.flight-hud {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: rgba(17, 24, 39, 0.85);
+  color: #e5e7eb;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  min-width: 220px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  font-family: "Courier New", monospace;
+}
+
+.flight-hud--disconnected {
+  opacity: 0.6;
+}
+
+.flight-hud__arm-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+
+  &--armed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.3),
+      inset 0 0 8px rgba(34, 197, 94, 0.1);
+
+    .flight-hud__arm-icon {
+      animation: armed-pulse 2s infinite;
+    }
+  }
+
+  &--disarmed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3),
+      inset 0 0 8px rgba(239, 68, 68, 0.1);
+  }
+}
+
+.flight-hud__arm-icon {
+  font-size: 16px;
+}
+
+.flight-hud__arm-text {
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.5px;
+}
+
+@keyframes armed-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.flight-hud__row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.flight-hud__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // Предотвращаем мигание при обновлении
+  contain: layout style paint;
+  // Аппаратное ускорение
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+.flight-hud__label {
+  font-size: 11px;
+  line-height: 1;
+  color: #93c5fd;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flight-hud__value {
+  font-weight: 700;
+  font-size: 14px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  will-change: color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.flight-hud__value--pos {
+  color: #34d399;
+}
+.flight-hud__value--neg {
+  color: #f87171;
+}
+
+.flight-hud__value--critical {
+  color: #f87171;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.6);
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+  animation: none; // Отключаем любые анимации
+}
+.flight-hud__value--warning {
+  color: #fbbf24;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+  animation: none; // Отключаем любые анимации
+}
+.flight-hud__value--good {
+  color: #34d399;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+  animation: none; // Отключаем любые анимации
+}
+
+.flight-hud__att {
+  position: relative;
+  height: 160px;
+  width: 160px;
+  margin: 0 auto;
+  perspective: 200px;
+}
+
+.flight-hud__sphere {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+  background: radial-gradient(
+      ellipse at 25% 25%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 40%
+    ),
+    radial-gradient(ellipse at 75% 75%, rgba(0, 0, 0, 0.4) 0%, transparent 40%),
+    radial-gradient(
+      ellipse at 50% 30%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 60%
+    ),
+    radial-gradient(ellipse at 50% 70%, rgba(0, 0, 0, 0.3) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+    linear-gradient(315deg, rgba(0, 0, 0, 0.2) 0%, transparent 30%);
+  box-shadow: inset -20px -20px 40px rgba(0, 0, 0, 0.3),
+    inset 20px 20px 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.4),
+    0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.flight-hud__sky {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(
+      ellipse at 30% 20%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 30%,
+      rgba(135, 206, 235, 0.4) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 50% 10%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 70%
+    ),
+    linear-gradient(135deg, #87ceeb 0%, #0ea5e9 30%, #0284c7 70%, #0369a1 100%);
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.15),
+    inset 0 0 60px rgba(135, 206, 235, 0.1);
+  transition: transform 0.2s ease-out;
+}
+
+.flight-hud__ground {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(
+      ellipse at 30% 80%,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 70%,
+      rgba(139, 69, 19, 0.3) 0%,
+      transparent 40%
+    ),
+    radial-gradient(ellipse at 50% 90%, rgba(0, 0, 0, 0.3) 0%, transparent 70%),
+    linear-gradient(45deg, #8b4513 0%, #b45309 30%, #92400e 70%, #78350f 100%);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 60px rgba(139, 69, 19, 0.2);
+  transition: transform 0.2s ease-out;
+}
+
+.flight-hud__horizon-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 2px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 6px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease-out;
+  z-index: 10;
+}
+
+.flight-hud__sphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 30%
+    ),
+    radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.2) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+.flight-hud__pitch-lines {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+.flight-hud__pitch-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  transition: opacity 0.2s ease-out;
+  transform-style: preserve-3d;
+
+  width: var(--pitch-width, 80px);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -1px;
+    width: 4px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: -1px;
+    width: 4px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+  }
+
+  &:nth-child(odd) {
+    &::before {
+      width: 6px;
+      height: 2px;
+    }
+    &::after {
+      width: 6px;
+      height: 2px;
+    }
+  }
+
+  .flight-hud__pitch-label {
+    position: absolute;
+    top: -5px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+    transition: opacity 0.2s ease-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.5px;
+
+    &--left {
+      left: -30px;
+    }
+
+    &--right {
+      right: -30px;
+    }
+  }
+}
+
+.flight-hud__aircraft {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.flight-hud__wings {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 3px;
+  background: #fbbf24;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.8), 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3px;
+    height: 20px;
+    background: #fbbf24;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.8), 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}

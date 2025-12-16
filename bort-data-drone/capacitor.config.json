@@ -1,0 +1,8 @@
+{
+  "appId": "com.example.app",
+  "appName": "Drone",
+  "webDir": ".output/public",
+  "server": {
+    "androidScheme": "https"
+  }
+}
