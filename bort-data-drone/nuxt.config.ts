@@ -54,6 +54,10 @@ export default defineNuxtConfig({
         ws: true,
         changeOrigin: true
       }
+    },
+    // Output configuration for Tauri
+    output: {
+      dir: '.output'
     }
   },
 
@@ -88,11 +92,6 @@ export default defineNuxtConfig({
 
   // Enable SSG (required for Tauri and Capacitor)
   ssr: false,
-  
-  // Capacitor configuration
-  generate: {
-    dir: 'dist'
-  },
   
   // (optional) Disable telemetry
   telemetry: {
